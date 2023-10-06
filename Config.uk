@@ -1,0 +1,21 @@
+menuconfig LIBROCKSDB
+    bool "Rocksdb"
+    default n
+    select LIBPOSIX_LIBDL
+    select LIBPOSIX_PROCESS
+    select LIBPOSIX_USER
+    select LIBPOSIX_SYSINFO
+	select LIBUKMMAP
+	select LIBUKTIME
+	select LIBNEWLIBC
+	select LIBNEWLIBC_WANT_IO_C99_FORMATS if LIBNEWLIBC
+	select LIBNEWLIBC_LINUX_ERRNO_EXTENSIONS if LIBNEWLIBC
+	select LIBPTHREAD_EMBEDDED
+
+if LIBROCKSDB
+
+config LIBROCKSDB_MAIN_FUNCTION
+    bool "Provide main function"
+    default n
+
+endif

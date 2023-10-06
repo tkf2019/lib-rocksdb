@@ -1,0 +1,30 @@
+################################################################################
+# Library registration
+################################################################################
+$(eval $(call addlib_s,librocksdb,$(CONFIG_LIBROCKSDB)))
+
+################################################################################
+# Sources
+################################################################################
+LIBROCKSDB_VERSION = 8.6.7
+LIBROCKSDB_BASENAME = rocksdb-$(LIBROCKSDB_VERSION)
+LIBROCKSDB_URL = https://github.com/facebook/rocksdb/archive/refs/tags/v$(LIBROCKSDB_VERSION).tar.gz
+# TODO: some patches
+$(eval $(call fetch,librocksdb,$(LIBROCKSDB_URL)))
+
+################################################################################
+# Flags
+################################################################################
+LIBROCKSDB_FLAGS = -Werror -Wno-unused-parameter -Wno-unused-variable \
+    -Wno-unused-but-set-variable -Wno-unused-value
+LIBROCKSDB_CFLAGS-y += $(LIBROCKSDB_FLAGS)
+
+################################################################################
+# Library includes
+################################################################################
+CINCLUDES-$(CONFIG_LIBROCKSDB) += -I$(LIBROCKSDB_BASE)/include
+
+################################################################################
+# Library sources
+################################################################################
+LIBROCKSDB_SRCS-$(CONFIG_LIBROCKSDB_MAIN_FUNCTION) += $(LIBROCKSDB_BASE)/main.c|unikraft
