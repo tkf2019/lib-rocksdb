@@ -1,0 +1,13 @@
+diff --git a/env/fs_posix.cc b/env/fs_posix.cc
+index dd2f74935..b2fd1fe6d 100644
+--- a/env/fs_posix.cc
++++ b/env/fs_posix.cc
+@@ -23,7 +23,7 @@
+ #include <sys/ioctl.h>
+ #include <sys/mman.h>
+ #include <sys/stat.h>
+-#if defined(OS_LINUX) || defined(OS_SOLARIS) || defined(OS_ANDROID)
++#if defined(OS_LINUX) || defined(OS_SOLARIS) || defined(OS_ANDROID) || defined(OS_UNIKRAFT)
+ #include <sys/statfs.h>
+ #include <sys/sysmacros.h>
+ #endif
