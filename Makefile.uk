@@ -27,7 +27,7 @@ LIBROCKSDB_CFLAGS-y += $(LIBROCKSDB_SUPPRESS_FLAGS)
 LIBROCKSDB_CXXFLAGS-y += $(LIBROCKSDB_SUPPRESS_FLAGS) \
 	-Woverloaded-virtual -Wnon-virtual-dtor -Wno-missing-field-initializers -Wno-invalid-offsetof \
 	-faligned-new -DHAVE_ALIGNED_NEW -DROCKSDB_PLATFORM_POSIX -DROCKSDB_LIB_IO_POSIX -DOS_UNIKRAFT \
-	-march=native -DNDEBUG
+	-march=native -DNDEBUG -DGFLAGS=1 -DROCKSDB_DISABLE_SNAPPY
 
 ################################################################################
 # Library includes
@@ -42,11 +42,11 @@ LIBROCKSDB_CXXINCLUDES += $(LIBROCKSDB_INCLUDES)
 ################################################################################
 # Library sources
 ################################################################################
-LIBROCKSDB_SRCS-y += $(LIBROCKSDB_BASE)/main.c|unikraft
+LIBROCKSDB_SRCS-y += $(LIBROCKSDB_BASE)/main.cc|unikraft
 
 # These are the sources from which librocksdb.a is built (copied from rocksdb/src.mk)
 # LIB_SOURCES
-LIBROCKSDB_SRCS-y +=                                                              	 \
+LIBROCKSDB_SRCS-y +=                                                              	\
 	$(LIBROCKSDB_SRC)/cache/cache.cc                                                \
 	$(LIBROCKSDB_SRC)/cache/cache_entry_roles.cc                                    \
 	$(LIBROCKSDB_SRC)/cache/cache_key.cc                                            \
@@ -363,3 +363,9 @@ LIBROCKSDB_SRCS-y +=                                                            
 	$(LIBROCKSDB_SRC)/utilities/write_batch_with_index/write_batch_with_index_internal.cc
 
 LIBROCKSDB_SRCS-y += $(LIBROCKSDB_BASE)/build_version.cc
+
+# BENCH_TOOL_SOURCES
+LIBROCKSDB_SRCS-y += 												\
+	$(LIBROCKSDB_SRC)/tools/db_bench_tool.cc 						\
+	$(LIBROCKSDB_SRC)/tools/simulated_hybrid_file_system.cc 		\
+	$(LIBROCKSDB_SRC)/test_util/testutil.cc
